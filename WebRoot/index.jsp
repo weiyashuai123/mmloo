@@ -1,10 +1,14 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*,java.sql.Connection,
+java.sql.DriverManager,java.sql.ResultSet
+,java.sql.SQLException,java.sql.Statement" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
+String name=" " ; String pass=" ";
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<!DOCTYPE HTML >
 <html>
   <head>
     <base href="<%=basePath%>">
@@ -21,6 +25,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    This is my JSP page. <br>
+    github test test 2<br>123132146546<br>
+ <%
+		Connection conn =null;
+		String url="jdbc:mysql://localhost:3306/test?user=root&password=&useUnicode=true&characterEncoding=UTF8";
+		try {
+			com.mysql.jdbc.Driver driver = new com.mysql.jdbc.Driver();
+			System.out.println("成功加载MySQL驱动程序");
+			conn = DriverManager.getConnection(url);
+			Statement stmt = conn.createStatement();
+			String sql = "select * from user";
+			ResultSet rs = stmt.executeQuery(sql);
+			System.out.println("学号\t姓名");
+			while (rs.next()) {
+                System.out.println(rs.getString(1) + "\t" + rs.getString(2));
+                name = rs.getString(1);
+                pass = rs.getString(2);
+            }
+		} catch (SQLException e) {
+			 System.out.println("MySQL操作错误");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+            try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+%>
+<br>user=<%=name %>
+<br>pass=<%=pass %>
+  
   </body>
 </html>
