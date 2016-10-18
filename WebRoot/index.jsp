@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     github test test 2<br>123132146546<br>
  <%
 		Connection conn =null;
-		String url="jdbc:mysql://localhost:3306/test?user=root&password=&useUnicode=true&characterEncoding=UTF8";
+		String url="jdbc:mysql://localhost:3306/mmloo?user=root&password=&useUnicode=true&characterEncoding=UTF8";
 		try {
 			com.mysql.jdbc.Driver driver = new com.mysql.jdbc.Driver();
 			System.out.println("成功加载MySQL驱动程序");
@@ -36,9 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			Statement stmt = conn.createStatement();
 			String sql = "select * from user";
 			ResultSet rs = stmt.executeQuery(sql);
-			System.out.println("学号\t姓名");
 			while (rs.next()) {
-                System.out.println(rs.getString(1) + "\t" + rs.getString(2));
                 name = rs.getString(1);
                 pass = rs.getString(2);
             }
